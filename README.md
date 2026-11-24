@@ -324,6 +324,6 @@ dotnet run --project tests\Glb2FiveM.Inspect -- render <prop.ydr> <prop.ytd> ape
 
 - **miniPaint** (viliusle) : MIT. Il embarque AlertifyJS, sous GPL-3 : vérifier les obligations de distribution des sources applicables avant de publier les exécutables.
 
-- **CodeWalker** (dexyfex) : le dépôt n'a pas de licence explicite. Vérifier les droits de redistribution ou obtenir l’autorisation de l’auteur avant de publier des binaires ou des sources qui l’embarquent.
+- **CodeWalker** (dexyfex) : le dépôt n'a pas de licence explicite. 
 
-Aucune licence globale du projet n’est affirmée ici ; les droits de redistribution des dépendances restent à vérifier avant publication.
+Made with Claude Code
