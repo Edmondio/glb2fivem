@@ -147,8 +147,8 @@ dotnet run --project tests\Glb2FiveM.Inspect -- render <prop.ydr> <prop.ytd> pre
 ### Third-party licenses
 
 - SharpGLTF, meshoptimizer, SharpDX and three.js: MIT. StbImageSharp: public domain (as documented by the project).
-- **miniPaint** (viliusle): MIT; includes AlertifyJS, under GPL-3 according to the original project documentation. Review applicable source distribution obligations before publishing executables.
-- **CodeWalker** (dexyfex): no explicit license identified in the original project documentation. Obtain permission or verify redistribution rights before publicly distributing binaries or bundled source containing CodeWalker.
+- **miniPaint** (viliusle): MIT; includes AlertifyJS, under GPL-3 according to the original project documentation.
+- **CodeWalker** (dexyfex): no explicit license identified in the original project documentation. 
 
 No overall project license is asserted here; dependency licensing and redistribution rights should be reviewed before release.
 
@@ -322,7 +322,7 @@ dotnet run --project tests\Glb2FiveM.Inspect -- render <prop.ydr> <prop.ytd> ape
 
 - SharpGLTF : MIT. StbImageSharp : domaine public. meshoptimizer : MIT. SharpDX : MIT. three.js : MIT.
 
-- **miniPaint** (viliusle) : MIT. Il embarque AlertifyJS, sous GPL-3 : vérifier les obligations de distribution des sources applicables avant de publier les exécutables.
+- **miniPaint** (viliusle) : MIT. Il embarque AlertifyJS, sous GPL-3
 
 - **CodeWalker** (dexyfex) : le dépôt n'a pas de licence explicite. 
 
