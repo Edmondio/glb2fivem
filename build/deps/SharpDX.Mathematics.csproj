@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Uniquement la partie maths de SharpDX (Vector3, Matrix...), seule utilisée par CodeWalker.Core. -->
+  <Import Project="Deps.props" />
+  <PropertyGroup>
+    <AssemblyName>SharpDX.Mathematics</AssemblyName>
+    <RootNamespace>SharpDX</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(TP)SharpDX/Source/SharpDX.Mathematics/*.cs" Exclude="$(TP)SharpDX/Source/SharpDX.Mathematics/AssemblyDoc.cs;$(TP)SharpDX/Source/SharpDX.Mathematics/NamespaceDoc.cs" />
+    <Compile Include="$(TP)SharpDX/Source/SharpDX/Mathematics/Interop/*.cs" />
+    <Compile Include="$(TP)SharpDX/Source/SharpDX/Size2.cs;$(TP)SharpDX/Source/SharpDX/Size2F.cs" />
+    <Compile Include="SharpDX.Utilities.cs" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>glb2fivem by Edmondio</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22%3E%3Cpath d=%22M8 1l7 7-7 7-7-7z%22 fill=%22%23f0a030%22/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "/vendor/three/build/three.module.min.js",
+        "three/addons/": "/vendor/three/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="logo">◆</span> glb2fivem <span class="by">by Edmondio</span> <span class="muted" id="version"></span></div>
+    <div class="topbar-file" id="fileLabel">Aucun modèle chargé</div>
+    <div class="seg lang-switch" id="langSwitch" title="Langue / Language">
+      <button data-lang="fr">FR</button>
+      <button data-lang="en">EN</button>
+    </div>
+    <button class="btn btn-ghost btn-github" id="githubLink" title="Page GitHub du projet (sources, nouveautés)">
+      <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+      GitHub
+    </button>
+    <label class="btn btn-ghost" for="fileInput">Ouvrir un .glb…</label>
+    <input type="file" id="fileInput" accept=".glb,.gltf" hidden>
+    <input type="file" id="imageInput" accept="image/png,image/jpeg,image/webp,image/bmp" hidden>
+  </header>
+
+  <main class="layout">
+    <aside class="panel">
+      <nav class="tabs">
+        <button data-tab="settings" class="active">Réglages</button>
+        <button data-tab="textures">Textures <span class="count" id="texCount"></span></button>
+        <button data-tab="lights">Lumières <span class="count" id="lightCount"></span></button>
+        <button data-tab="cleanup">Nettoyer</button>
+      </nav>
+
+      <div class="tab" id="tab-settings">
+      <section>
+        <h2>Prop</h2>
+        <label class="field">
+          <span>Nom du modèle</span>
+          <input type="text" id="name" placeholder="prop_mon_objet" spellcheck="false" autocomplete="off">
+          <small class="hint" id="nameHint">Minuscules, chiffres et _ uniquement.</small>
+        </label>
+      </section>
+
+      <section>
+        <h2>Taille et position</h2>
+        <label class="field">
+          <span>Hauteur finale <b id="heightValue" class="value"></b></span>
+          <div class="row">
+            <input type="range" id="heightSlider" min="0" max="1000" step="1" value="500">
+            <input type="number" id="height" min="0.01" max="200" step="0.01" class="num" value="1">
+            <span class="unit">m</span>
+          </div>
+          <small class="hint" id="scaleHint"></small>
+        </label>
+        <label class="field">
+          <span>Rotation <b id="rotateValue" class="value">0°</b></span>
+          <div class="row">
+            <input type="range" id="rotate" min="-180" max="180" step="5" value="0">
+            <button class="btn btn-small" id="rotate90" title="Tourner de 90°">↻ 90°</button>
+          </div>
+        </label>
+        <label class="field">
+          <span>Point d'origine</span>
+          <select id="pivot">
+            <option value="base">Centre de la base (posé au sol)</option>
+            <option value="center">Centre du modèle</option>
+            <option value="origin">Origine du GLB</option>
+          </select>
+        </label>
+      </section>
+
+      <section>
+        <h2>Optimisation</h2>
+        <label class="field">
+          <span>Triangles max</span>
+          <div class="chips" id="trisChips">
+            <button data-v="10000">10k léger</button>
+            <button data-v="50000">50k détaillé</button>
+            <button data-v="150000">150k max</button>
+          </div>
+          <input type="number" id="maxTris" min="100" max="1000000" step="1000" value="150000">
+        </label>
+        <label class="field">
+          <span>Taille max des textures</span>
+          <select id="maxTexture">
+            <option value="512">512 px</option>
+            <option value="1024">1024 px</option>
+            <option value="2048" selected>2048 px</option>
+            <option value="4096">4096 px</option>
+          </select>
+        </label>
+        <label class="check"><input type="checkbox" id="lods" checked> Générer les LOD (moyen / bas / très bas)</label>
+        <label class="field">
+          <span>Collision</span>
+          <select id="collision">
+            <option value="box">Boîte englobante (simple, léger)</option>
+            <option value="mesh">Forme du modèle (précis)</option>
+            <option value="none">Aucune</option>
+          </select>
+          <small class="hint" id="collisionHint"></small>
+        </label>
+        <label class="field" id="collisionTrisField" hidden>
+          <span>Détail de la collision <b id="collisionTrisValue" class="value"></b></span>
+          <input type="range" id="collisionTris" min="0" max="1000" step="1">
+          <small class="hint">Monte si des ouvertures (porte, barreaux) se bouchent : vérifie avec « Collision » dans l'aperçu.</small>
+        </label>
+        <details>
+          <summary>Avancé</summary>
+          <label class="field">
+            <span>Distance d'affichage (m)</span>
+            <input type="number" id="lodDist" min="10" max="3000" step="10" placeholder="auto">
+          </label>
+          <label class="check"><input type="checkbox" id="flipNormal" checked> Inverser le vert des normal maps (DirectX)</label>
+          <label class="check"><input type="checkbox" id="cwPreview" checked> Créer un aperçu pour CodeWalker</label>
+          <label class="check"><input type="checkbox" id="keepXml"> Garder les XML CodeWalker</label>
+        </details>
+      </section>
+
+      <section>
+        <h2>Sortie</h2>
+        <label class="field">
+          <span>Dossier des ressources</span>
+          <div class="row">
+            <input type="text" id="outDir" spellcheck="false">
+            <button class="btn btn-small" id="browse" hidden>…</button>
+          </div>
+        </label>
+      </section>
+
+      </div>
+
+      <div class="tab" id="tab-textures" hidden>
+        <div id="texList"><p class="tex-empty muted">Charge un modèle pour voir ses matériaux et textures.</p></div>
+      </div>
+
+      <div class="tab" id="tab-lights" hidden>
+        <section>
+          <button class="btn place-btn" id="placeLight">＋ Placer une lumière</button>
+          <label class="check" style="margin-top:10px"><input type="checkbox" id="nightMode"> Aperçu de nuit</label>
+          <label class="field compact"><span>Pas de la poignée</span>
+            <select id="lightSnap">
+              <option value="0">Libre</option>
+              <option value="0.01">1 cm (rotation 15°)</option>
+              <option value="0.05">5 cm (rotation 15°)</option>
+              <option value="0.1">10 cm (rotation 15°)</option>
+            </select></label>
+          <p class="note">Clique sur le modèle pour poser une lumière, puis ajuste-la avec la poignée (G : déplacer, R : orienter un spot) ou en tapant sa position. Clic sur une ampoule pour la sélectionner, Suppr pour l'effacer.</p>
+        </section>
+        <div id="lightList"></div>
+      </div>
+
+      <div class="tab" id="tab-cleanup" hidden>
+        <section>
+          <h2>Outil de sélection</h2>
+          <div class="seg full" id="cleanTools">
+            <button data-tool="piece" title="Touche 1">Pièce</button>
+            <button data-tool="island" title="Touche 2">Îlot</button>
+            <button data-tool="box" title="Touche 3">Zone</button>
+          </div>
+          <p class="note" id="cleanToolHint"></p>
+          <p class="note">Maj + clic : ajouter · Ctrl + clic : retirer · Échap : tout désélectionner</p>
+        </section>
+        <section>
+          <p class="clean-stats" id="cleanStats"></p>
+          <div class="img-actions">
+            <button class="btn btn-small" id="cleanDelete" title="Suppr">🗑 Supprimer la sélection</button>
+            <button class="btn btn-small" id="cleanKeep">Garder uniquement la sélection</button>
+          </div>
+          <div class="img-actions">
+            <button class="btn btn-small" id="cleanClear">Désélectionner</button>
+            <button class="btn btn-small" id="cleanUndo" title="Ctrl+Z">↶ Annuler</button>
+          </div>
+        </section>
+        <section>
+          <p class="note warn-note" id="cleanDirty" hidden>Modifications pas encore appliquées : la conversion utiliserait l'ancien modèle.</p>
+          <button class="btn place-btn" id="cleanApply" disabled>Appliquer et recharger le modèle</button>
+          <p class="note">Le modèle nettoyé est réexporté en GLB et rechargé (taille, LOD et collision sont recalculés). Fais le nettoyage avant de placer des lumières.</p>
+        </section>
+      </div>
+
+      <div class="panel-footer">
+        <button class="btn btn-primary" id="convert" disabled>Convertir</button>
+      </div>
+    </aside>
+
+    <div class="viewer" id="viewer">
+      <canvas id="canvas"></canvas>
+      <div class="stats" id="stats" hidden></div>
+      <div class="view-tools">
+        <div class="seg" id="viewSource" title="Modèle affiché">
+          <button data-v="original" class="active">Original</button>
+        </div>
+        <span class="sep"></span>
+        <label class="check small"><input type="checkbox" id="wireframe"> Fil de fer</label>
+        <label class="check small coll"><input type="checkbox" id="showCollision"> Collision</label>
+        <label class="check small"><input type="checkbox" id="showPed" checked> Mannequin</label>
+        <button class="btn btn-small" id="frame">Recadrer</button>
+      </div>
+      <div class="place-hint" id="placeHint" hidden></div>
+      <div class="select-box" id="selectBox" hidden></div>
+      <div class="analysis-badge" id="analysisBadge" hidden><div class="mini-spinner"></div> Calcul de l'aperçu GTA…</div>
+      <div class="ped-label" id="pedLabel">Ped · 1,80 m</div>
+      <div class="empty" id="empty">
+        <div class="empty-box">
+          <div class="empty-icon">⬇</div>
+          <p><b>Glisse un fichier .glb ici</b></p>
+          <p class="muted">ou utilise « Ouvrir un .glb… »</p>
+        </div>
+      </div>
+      <div class="drop-overlay" id="dropOverlay">Lâche le fichier pour l'ouvrir</div>
+      <div class="busy" id="busy" hidden><div class="spinner"></div><span id="busyText">Conversion…</span></div>
+
+      <section class="result" id="result" hidden>
+        <button class="close" id="closeResult" title="Fermer">×</button>
+        <div id="resultBody"></div>
+      </section>
+    </div>
+  </main>
+
+  <div class="editor-modal" id="editorModal" hidden>
+    <div class="editor-bar">
+      <b id="editorTitle"></b>
+      <span class="muted">Peins, retouche, ajoute du texte ou des calques, puis applique : la texture du modèle est remplacée.</span>
+      <span class="spacer"></span>
+      <button class="btn" id="editorCancel">Annuler</button>
+      <button class="btn btn-accent" id="editorApply">✓ Appliquer à la texture</button>
+    </div>
+    <div class="editor-frame" id="editorFrameHost">
+      <div class="editor-loading" id="editorLoading"><div class="spinner"></div> Chargement de l'éditeur…</div>
+    </div>
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

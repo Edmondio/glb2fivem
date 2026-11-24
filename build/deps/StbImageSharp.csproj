@@ -1,0 +1,5 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="Deps.props" />
+  <PropertyGroup><AssemblyName>StbImageSharp</AssemblyName></PropertyGroup>
+  <ItemGroup><Compile Include="$(TP)StbImageSharp/src/**/*.cs" /></ItemGroup>
+</Project>

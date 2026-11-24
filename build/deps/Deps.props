@@ -1,0 +1,15 @@
+<Project>
+  <!-- Réglages communs aux projets "wrapper" qui compilent les sources des dépendances
+       (third_party/) sans passer par NuGet. -->
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <Nullable>disable</Nullable>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>0</WarningLevel>
+    <NoWarn>$(NoWarn);CS0108;CS0114;CS0162;CS0168;CS0169;CS0219;CS0414;CS0419;CS0618;CS0649;CS0672;CS1572;CS1573;CS1574;CS1580;CS1584;CS1591;CS1658;CS8632;CS8981;CA1416;SYSLIB0001;SYSLIB0011;SYSLIB0021;SYSLIB0022;SYSLIB0023</NoWarn>
+    <TP>$(MSBuildThisFileDirectory)../../third_party/</TP>
+  </PropertyGroup>
+</Project>

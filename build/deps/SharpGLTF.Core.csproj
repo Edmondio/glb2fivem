@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="Deps.props" />
+  <PropertyGroup>
+    <AssemblyName>SharpGLTF.Core</AssemblyName>
+    <RootNamespace>SharpGLTF</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(TP)SharpGLTF/src/SharpGLTF.Core/**/*.cs" />
+    <Compile Include="$(TP)SharpGLTF/src/Shared/Guard.cs;$(TP)SharpGLTF/src/Shared/_Extensions.cs" />
+  </ItemGroup>
+</Project>

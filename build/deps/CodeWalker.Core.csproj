@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="Deps.props" />
+  <PropertyGroup>
+    <AssemblyName>CodeWalker.Core</AssemblyName>
+    <RootNamespace>CodeWalker</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(TP)CodeWalker/CodeWalker.Core/**/*.cs" />
+    <Compile Include="CodeWalker.GlobalUsings.cs" />
+    <EmbeddedResource Include="$(TP)CodeWalker/CodeWalker.Core/Resources/magic.dat" LogicalName="CodeWalker.Core.Resources.magic.dat" />
+    <None Include="$(TP)CodeWalker/CodeWalker.Core/strings.txt" Link="strings.txt" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="$(TP)CodeWalker/CodeWalker.Core/ShadersGen9Conversion.xml" Link="ShadersGen9Conversion.xml" CopyToOutputDirectory="PreserveNewest" />
+    <ProjectReference Include="SharpDX.Mathematics.csproj" />
+  </ItemGroup>
+</Project>

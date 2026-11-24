@@ -1,0 +1,24 @@
+<Project>
+  <!-- Réglages de "dotnet publish" pour un .exe autonome en un seul fichier (voir build-exe.bat). -->
+  <PropertyGroup>
+    <Version>1.1.0</Version>
+    <Product>glb2fivem by Edmondio</Product>
+    <Company>Edmondio</Company>
+    <Authors>Edmondio</Authors>
+    <Copyright>Edmondio</Copyright>
+    <RepositoryUrl>https://github.com/Edmondio/glb2fivem</RepositoryUrl>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(PublishSingleFile)' == 'true'">
+    <SelfContained>true</SelfContained>
+    <!-- La DLL meshoptimizer et les fichiers de CodeWalker sont emballés dans l'exe et extraits au lancement. -->
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
+    <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+    <DebugType>none</DebugType>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <!-- Pas de "trimming" : CodeWalker utilise beaucoup la réflexion. -->
+    <PublishTrimmed>false</PublishTrimmed>
+    <!-- Analyseur facultatif qui exigerait le paquet ILLink depuis NuGet. -->
+    <EnableSingleFileAnalyzer>false</EnableSingleFileAnalyzer>
+  </PropertyGroup>
+</Project>

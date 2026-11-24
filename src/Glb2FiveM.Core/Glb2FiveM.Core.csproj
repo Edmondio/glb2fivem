@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <RootNamespace>Glb2FiveM</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../build/deps/CodeWalker.Core.csproj" />
+    <ProjectReference Include="../../build/deps/SharpDX.Mathematics.csproj" />
+    <ProjectReference Include="../../build/deps/SharpGLTF.Core.csproj" />
+    <ProjectReference Include="../../build/deps/StbImageSharp.csproj" />
+  </ItemGroup>
+  <!-- meshoptimizer natif (compilé par tools/build-meshopt.sh) -->
+  <ItemGroup>
+    <None Include="../../native/win-x64/meshoptimizer.dll" Link="meshoptimizer.dll" CopyToOutputDirectory="PreserveNewest" Condition="Exists('../../native/win-x64/meshoptimizer.dll')" />
+    <None Include="../../native/linux-x64/libmeshoptimizer.so" Link="libmeshoptimizer.so" CopyToOutputDirectory="PreserveNewest" Condition="Exists('../../native/linux-x64/libmeshoptimizer.so')" />
+  </ItemGroup>
+</Project>
